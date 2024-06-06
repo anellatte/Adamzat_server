@@ -175,7 +175,7 @@ io.on('connection', (socket) => {
 
 
 server.listen(2709, () => {
-    console.log(`Server running on port: http://localhost:${PORT}`);
+    console.log(`Server running on port: http://localhost:2709`);
 });
 
 async function connectToMongoDB() {
