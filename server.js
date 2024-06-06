@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const Room = require('./models/room');
 
 const server = http.createServer(app);
+
 const io = new Server(server, {
     cors: {
         origin: 'https://adamzat-client.onrender.com',
@@ -174,8 +175,8 @@ io.on('connection', (socket) => {
 });
 
 
-server.listen(2709, () => {
-    console.log(`Server running on port: http://localhost:2709`);
+server.listen(8800, () => {
+    console.log('Connected to backend.');
 });
 
 async function connectToMongoDB() {
