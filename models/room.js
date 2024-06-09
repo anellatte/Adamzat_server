@@ -35,8 +35,6 @@ const playerSchema = new mongoose.Schema({
     },
 });
 
-
-
 const roomSchema = new mongoose.Schema({
     pin: {
         type: Number,
@@ -76,12 +74,15 @@ const roomSchema = new mongoose.Schema({
         type: [String],
         default: () => {
             const letters = 'АӘБВГҒДЕЖЗИКҚЛМНОӨПРСТУШЫІ';
-            const randomLetters = new Set();
-            while (randomLetters.size < 5) {
+            let randomLetters = [];
+            while (randomLetters.length < 5) {
                 const randomIndex = Math.floor(Math.random() * letters.length);
-                randomLetters.add(letters[randomIndex]);
+                const selectedLetter = letters[randomIndex];
+                if (!randomLetters.includes(selectedLetter)) {
+                    randomLetters.push(selectedLetter);
+                }
             }
-            return Array.from(randomLetters);
+            return randomLetters;
         },
     },
     createdAt: {
@@ -89,6 +90,7 @@ const roomSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
+
 roomSchema.index({ pin: 1, "players.nickname": 1 }, { unique: true, partialFilterExpression: { "players.nickname": { $type: 'string' } } });
 
 const Room = mongoose.model('Room', roomSchema);
